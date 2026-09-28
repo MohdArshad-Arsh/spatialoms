@@ -1,0 +1,23 @@
+node_modules/
+build/
+dist/
+.env
+target/
+.idea/
+.vscode/
+
+# Python virtual environments
+oms_chatBot/resa_venv/
+oms_chatBot/ui_venv/
+
+# Optional: ignore all Python cache files
+__pycache__/
+*.py[cod]
+
+# Rasa generated files
+oms_chatBot/main/.rasa/
+oms_chatBot/main/models/
+
+# Python cache
+__pycache__/
+*.py[cod]

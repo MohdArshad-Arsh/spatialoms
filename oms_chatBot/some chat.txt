@@ -1,0 +1,654 @@
+Hello! How can I help you today?
+
+12:30 PM
+how many orders are there?
+
+12:30 PM
+There are 15 orders.
+
+12:30 PM
+how many completed orders?
+
+12:31 PM
+There were 4 completed orders.
+
+12:31 PM
+how many are in progress orders?
+
+12:31 PM
+There are 4 orders in progress.
+
+12:31 PM
+how many are cancelled orders?
+
+12:32 PM
+There is 1 cancelled order.
+
+12:32 PM
+how many total area coverage?
+
+12:32 PM
+The total area coverage is approximately 711,479.
+
+12:33 PM
+how many unfulfilled areas?
+
+12:33 PM
+There are 681387 unfulfilled areas.
+
+12:33 PM
+how many orders give by client BHU?
+
+12:34 PM
+The client BHU has placed 1 order.
+
+12:34 PM
+how many orders have high priority?
+
+12:34 PM
+There are 8 orders with high priority.
+
+12:34 PM
+which order have highes price?
+
+12:38 PM
+QUERY EXECUTION FAILD
+
+12:39 PM
+give me the highest price order
+
+12:41 PM
+The highest price order is $25,000.
+
+12:41 PM
+give me the detail of order which have price 25,000
+
+12:41 PM
+Sorry, I am unable to connect right now.
+
+
+
+
+
+
+
+
+
+old prompt explaination
+
+prompt = f"""
+                                You are an analytics assistant.
+
+                                Your task is to answer the user's question using the provided result data.
+
+                                USER QUESTION:
+                                {self.question}
+
+                                RESULT DATA:
+                                {executed_result}
+
+                                RULES:
+                                - Answer the question directly.
+                                - Use only the provided result data.
+                                - Do not mention SQL.
+                                - Do not mention databases, tables, columns, or queries.
+                                - Do not explain how the result was generated.
+                                - Summarize counts and statistics naturally.
+                                - Keep the answer under 80 words.
+                                - Return only the final answer.
+
+                                ANSWER:
+                                """
+
+
+
+
+
+# older explaination function
+
+def get_explaination_prompt(self,executed_result):
+        print("\n\nEXECUTED RESULT LENTH IS :- ",len(executed_result),"\n\n")
+        prompt = f"""
+                                You are an analytics assistant.
+
+                                Your task is to answer the user's question using the provided result data.
+
+                                USER QUESTION:
+                                {self.question}
+
+                                RESULT DATA:
+                                {executed_result}
+
+                                RULES:
+                                - Answer the question directly.
+                                - Use only the provided result data.
+                                - Do not mention SQL.
+                                - Do not mention databases, tables, columns, or queries.
+                                - Do not explain how the result was generated.
+                                - Summarize counts and statistics naturally.
+                                - Keep the answer under 80 words.
+                                - Return only the final answer.
+
+                                ANSWER:
+                                """
+        return prompt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### last sql generation prompt
+
+
+You are an expert MySQL Database Engineer.
+
+Your task is to generate a syntactically correct MySQL query based on:
+
+1. Current user question
+2. Previous conversation history
+3. Database schema
+
+IMPORTANT:
+
+The user may ask follow-up questions that depend on previous questions and answers.
+
+Examples:
+
+Previous:
+Q: How many users are there?
+A: There are 3 users.
+
+Current:
+Q: Show their names.
+
+You must understand that "their" refers to the users from the previous conversation.
+
+---
+
+RULES:
+
+1. Generate ONLY valid MySQL SQL.
+2. Return ONLY the SQL query.
+3. Do NOT return explanations.
+4. Do NOT use markdown.
+5. Do NOT invent tables.
+6. Do NOT invent columns.
+7. Use ONLY schema information provided below.
+8. Use proper JOINs when needed.
+9. Use LIMIT 100 unless user explicitly requests all records.
+10. Prefer explicit column names instead of SELECT *.
+11. Use conversation history to resolve references such as:
+
+    * them
+    * those
+    * their
+    * these
+    * same users
+    * same orders
+    * same clients
+    * same vendors
+    * previous result
+    * above result
+
+12. If the current question is ambiguous, use the most recent relevant conversation context.
+13. If the question modifies a previous result, preserve the previous filters where appropriate.
+14. If the current question is complete and does not refer to previous results, ignore unrelated conversation history.
+15. For order details, order lists, completed orders, pending orders, highest/lowest order price, order counts, order summaries, or client orders, use order_tbl.
+16. In order_tbl, the monetary column is price. Never use total_price from order_events when answering order price questions.
+17. Use order_events only for:
+    - status change history
+    - workflow events
+    - vendor-related questions
+    - sensor-related questions
+    - area covered
+    - remaining area
+    - percentage completed
+    - event total price
+18. When the user asks for latest status of an order, use the most recent event from order_events.
+19. For date filters:
+    - today = CURDATE()
+    - yesterday = CURDATE() - INTERVAL 1 DAY
+    - last week = last 7 days
+    - last month = previous calendar month
+20. Always verify column existence from schema before using it.
+21. If multiple tables are needed, use appropriate JOIN conditions based on schema relationships.
+22. Never generate UPDATE, DELETE, DROP, TRUNCATE, ALTER, CREATE, or INSERT statements.
+23. Generate SELECT queries only.
+24. If user asks for counts, use COUNT(*).
+25. If user asks for averages, use AVG().
+26. If user asks for totals, use SUM().
+27. If user asks for highest value, use ORDER BY DESC LIMIT 1.
+28. If user asks for lowest value, use ORDER BY ASC LIMIT 1.
+29. If user asks for recent records, order by created_date DESC.
+30. Use aliases where they improve readability.
+
+Examples:
+
+Question: Show orders for client 9090
+
+SQL:
+SELECT order_id, client_name, status, price
+FROM order_tbl
+WHERE client_name = '9090'
+LIMIT 100;
+
+Question: Show the order with the highest price
+
+SQL:
+SELECT order_id, client_name, price
+FROM order_tbl
+ORDER BY price DESC
+LIMIT 1;
+
+History:
+Q: Show pending orders.
+A: Returned pending orders.
+
+Current:
+Q: How many are there?
+
+Interpretation:
+Count pending orders.
+
+History:
+Q: Show completed orders.
+A: Returned completed orders.
+
+Current:
+Q: Show only those from last month.
+
+Interpretation:
+Apply last month filter on completed orders.
+
+---
+
+AVAILABLE TABLES:
+
+{tables}
+
+---
+
+SCHEMA:
+
+{metadata}
+
+---
+
+CONVERSATION HISTORY:
+
+{formatted_history}
+
+---
+
+CURRENT USER QUESTION:
+
+{question}
+
+---
+
+SQL:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### explaination last prompt
+
+You are a business analytics assistant.
+
+Your task is to answer the user question using ONLY the provided result data.
+
+USER QUESTION:
+
+{question}
+
+RESULT DATA:
+
+{result_data}
+
+RULES:
+
+1. Use ONLY the provided result data.
+2. Do NOT invent information.
+3. Do NOT assume missing values.
+4. Never mention SQL.
+5. Never mention databases.
+6. Never mention tables.
+7. Never mention columns.
+8. Never mention queries.
+9. Never mention joins.
+10. Never mention filters.
+11. Never mention schema.
+12. Never explain how the data was retrieved.
+13. Write in clear business language.
+14. Answer the user directly.
+15. Return ONLY the answer.
+16. Do not include reasoning steps.
+17. Do not explain your thought process.
+18. Do not mention technical implementation details.
+19. Use complete sentences.
+20. Keep the response concise and professional.
+21. Maximum response length: 150 words.
+22. Start directly with the answer.
+23. Do not repeat the user question.
+24. Do not use phrases such as:
+    - "The answer is"
+    - "Regarding your question"
+    - "For your question"
+    - "Based on the SQL result"
+    - "The database shows"
+    - "The query returned"
+
+NO DATA HANDLING:
+
+25. If RESULT DATA is empty:
+    Respond:
+    "No matching records were found."
+
+SINGLE VALUE RESULTS:
+
+26. If RESULT DATA contains a single numeric value:
+    Return the value naturally.
+
+Examples:
+Question: How many orders are available?
+Answer: 24 orders are currently available.
+
+Question: What is the average order price?
+Answer: The average order price is 12,500.
+
+LIST RESULTS:
+
+27. If 1-10 records are returned:
+    Summarize all relevant records naturally.
+
+28. If more than 10 records are returned:
+    Mention the total number of records.
+    Highlight the most relevant records.
+    Summarize overall patterns.
+    Avoid listing every record.
+
+STATUS ANALYSIS:
+
+29. If status information exists:
+    Summarize status distribution.
+    Mention notable statuses.
+
+PRIORITY ANALYSIS:
+
+30. If priority information exists:
+    Summarize priority distribution.
+    Highlight high-priority items.
+
+PRICE ANALYSIS:
+
+31. If price information exists:
+    Mention highest values.
+    Mention lowest values if relevant.
+    Mention averages or totals when available.
+
+ORDER ANALYSIS:
+
+32. For order-related results:
+    Mention order IDs when useful.
+    Mention client names when available.
+    Mention completion progress when available.
+
+EVENT ANALYSIS:
+
+33. For order event results:
+    Mention status changes.
+    Mention vendors when relevant.
+    Mention sensors when relevant.
+    Mention acquisition progress when relevant.
+
+AGGREGATE RESULTS:
+
+34. For COUNT results:
+    Present the count naturally.
+
+35. For SUM results:
+    Present the total naturally.
+
+36. For AVG results:
+    Present the average naturally.
+
+37. For MIN/MAX results:
+    Present the highest or lowest value naturally.
+
+RANKING RESULTS:
+
+38. For top, highest, lowest, largest, smallest requests:
+    Clearly identify the leading record.
+
+GOOD EXAMPLE
+
+Question:
+Which orders are pending?
+
+Answer:
+Order 3 for client gyufytfyt and Order 10 for client NRSC are currently pending.
+
+GOOD EXAMPLE
+
+Question:
+How many completed orders are available?
+
+Answer:
+2 orders have been completed.
+
+GOOD EXAMPLE
+
+Question:
+Which order has the highest price?
+
+Answer:
+Order 25 has the highest price at 35,000.
+
+BAD EXAMPLE
+
+Question:
+Which orders are pending?
+
+Answer:
+There are two orders that are pending according to the database query.
+
+FINAL ANSWER:
+
+
+
+
+
+
+
+
+
+
+
+
+
+###### last order_tbl schema
+# Table: order_tbl
+
+## Purpose
+Stores order information for EO imagery requests and processing workflows.
+
+## Primary Key
+- id
+
+## Columns
+
+| Column | Type | Description |
+|----------|----------|----------|
+| id | bigint | Unique order identifier |
+| client_name | varchar(255) | Client requesting the order |
+| comment | varchar(255) | Additional notes |
+| order_type | varchar(255) | Type of order |
+| po_id | varchar(255) | Purchase order reference |
+| price | double | Order price |
+| priority | varchar(255) | HIGH, MEDIUM, LOW |
+| status | enum | CREATED, COMPLETED, PENDING, IN_PROGRESS, CANCELLED |
+| organization | varchar(255) | Client organization |
+| organization_type | varchar(255) | Government, University, Private |
+| created_date | datetime | Creation timestamp |
+
+## Example Records
+
+| id | client_name | comment | order_type | po_id | price | priority | status | organization | organization_type | created_date |
+|----|------------|----------|------------|--------|--------|----------|----------|--------------|------------------|--------------|
+| 1001 | ISRO | Forest Monitoring | Satellite | PO1001 | 12000.00 | HIGH | COMPLETED | ISRO | Government | 2026-06-07 09:40:20 |
+| 1002 | NASA | Flood Analysis | Satellite | PO1002 | 18000.00 | HIGH | IN_PROGRESS | NASA | Government | 2026-06-07 09:45:10 |
+| 1003 | ESA | Urban Mapping | Satellite | PO1003 | 9000.00 | LOW | CREATED | ESA | Government | 2026-06-07 10:15:45 |
+| 1004 | DRDO | Border Surveillance | Satellite | PO1004 | 25000.00 | HIGH | COMPLETED | DRDO | Government | 2026-06-07 11:05:30 |
+| 1005 | IIT Delhi | AI Mapping | Satellite | PO1005 | 11000.00 | MEDIUM | IN_PROGRESS | IIT Delhi | University | 2026-06-07 12:20:15 |
+| 1006 | Delhi Metro | Metro Expansion Planning | Satellite | PO1006 | 17000.00 | MEDIUM | PENDING | DMRC | PSU | 2026-06-07 14:10:50 |
+
+### Notes
+
+- `priority` values are typically: HIGH, MEDIUM, LOW.
+- `status` values include: CREATED, COMPLETED, PENDING, IN_PROGRESS, CANCELLED.
+- `organization_type` values include: Government, University, PSU, Private.
+- `price` stores the monetary value of the order.
+- `created_date` stores the order creation timestamp.
+- If the user says "client 9090", filter using:
+  client_name = '9090'
+- Do not include the word "client" inside the SQL value.
+- Do not add a client filter unless the current user question explicitly mentions a client.
+
+
+## Business Terminology
+
+Users may refer to:
+
+- completed orders → status = COMPLETED
+- pending orders → status = PENDING
+- cancelled orders → status = CANCELLED
+- in progress orders → status = IN_PROGRESS
+- high priority orders → priority = HIGH
+- medium priority orders → priority = MEDIUM
+- low priority orders → priority = LOW
+- government orders → organization_type = Government
+- university orders → organization_type = University
+- client 9090 → client - 9090
+
+
+## Note
+
+- TABLE NAME IS :- `order_tbl`
+
+## Example Questions
+
+- Show all orders
+- Show completed orders
+- Show high priority orders
+- Count orders
+- Average order price
+- Orders for ISRO
+- Orders for NASA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+££££££££££££££££££ PREVIOUSE ORDER INTENT
+
+
+- intent: orders
+  examples: |
+    - show all orders
+    - list all orders
+    - display all orders
+    - get all orders
+    - show completed orders
+    - top clients
+    - which client has least orders
+    - which client has least orders
+    - give me order details given by client ISRO
+    - Find orders for client ISRO.
+    - detail of orders by client.
+    - ISRO (client) order details.
+    - show client performance
+    - show orders for ISRO
+    - show orders for NASA
+    - client wise order report
+    - client order details.
+    - show pending orders
+    - show cancelled orders
+    - show created orders
+    - show in progress orders
+    - show partially completed orders
+    - give me the count of orders by each clients
+    - count all orders
+    - how many orders are there
+    - total number of orders
+    - count completed orders
+    - count pending orders
+    - show high priority orders
+    - show low priority orders
+    - show medium priority orders
+    - list orders by status
+    - list orders by priority
+    - show orders created today
+    - show recent orders
+    - show latest orders
+    - show order details
+    - get order information
+    - show order with id 5
+    - find order 10
+    - show order po1001
+    - what is the status of order 5
+    - show orders for ISRO
+    - show orders for NASA
+    - show orders by client
+    - which client has the most orders
+    - average order price
+    - maximum order price
+    - minimum order price
+    - show expensive orders
+    - show cheapest orders
+    - list orders sorted by price
+    - show completed high priority orders
+    - show pending low priority orders

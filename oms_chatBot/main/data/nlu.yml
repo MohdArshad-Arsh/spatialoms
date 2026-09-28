@@ -1,0 +1,563 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+
+
+- intent: my_details
+  examples: |
+    - do you know me?
+    - what is my name?
+    - who i am?
+
+- intent: my_name
+  examples: |
+    - my name is [Sameer](name)
+    - my name is [Danish](name)
+    - my name is [John](name)
+    - i am [Sameer](name)
+    - i am [Danish](name)
+    - i am [John](name)
+    - i'm [Sameer](name)
+    - i'm [Danish](name)
+    - call me [Sameer](name)
+    - call me [Danish](name)
+    - people call me [John](name)
+    - you can call me [Sameer](name)
+    - this is [Danish](name)
+    - myself [Sameer](name)
+    - my name's [John](name)
+
+
+
+- intent: orders
+  examples: |
+    - show all orders
+    - list all orders
+    - display all orders
+    - get all orders
+    - fetch all orders
+    - retrieve all orders
+    - provide all orders
+    - show order details
+    - get order information
+    - show order summary
+    - list order records
+    - count all orders
+    - how many orders are there
+    - total number of orders
+    - show completed orders
+    - show pending orders
+    - show created orders
+    - show cancelled orders
+    - show in progress orders
+    - show partially completed orders
+    - show completed with enhancements orders
+    - show high priority orders
+    - show medium priority orders
+    - show low priority orders
+    - list orders by status
+    - list orders by priority
+    - show orders created today
+    - show orders created yesterday
+    - show orders created this week
+    - show orders created last week
+    - show recent orders
+    - show latest orders
+    - show oldest orders
+    - show order with id 5
+    - show order with id 10
+    - find order 5
+    - find order 10
+    - details for order 5
+    - details for order 10
+    - show order po1001
+    - show order po1005
+    - what is the status of order 5
+    - what is the status of order 10
+    - show orders for ISRO
+    - show orders for NASA
+    - show orders for ESA
+    - show orders for DRDO
+    - show orders for NRSC
+    - show orders for IIT Delhi
+    - show orders for IIT Bombay
+    - show orders for Delhi Metro
+    - find orders for client ISRO
+    - find orders for client NASA
+    - give me order details given by client ISRO
+    - client order details
+    - show orders by client
+    - show orders by organization
+    - show government orders
+    - show university orders
+    - show PSU orders
+    - show orders from government organizations
+    - which client has the most orders
+    - which client has the least orders
+    - top clients
+    - top clients by orders
+    - client order count
+    - give me the count of orders by each client
+    - client wise order report
+    - compare clients by order count
+    - show client performance
+    - average order price
+    - maximum order price
+    - minimum order price
+    - highest order price
+    - lowest order price
+    - show expensive orders
+    - show cheapest orders
+    - list orders sorted by price
+    - top 5 most expensive orders
+    - top 5 cheapest orders
+    - show completed high priority orders
+    - show pending high priority orders
+    - show pending low priority orders
+    - show completed government orders
+    - show high priority government orders
+    - show orders with price greater than 10000
+    - show orders with price less than 10000
+    - total order value
+    - average order value
+    - order price statistics
+    - detail of orders by client
+    - ISRO client order details
+    - NASA client order details
+    - fetch orders by organization
+    - list all client orders
+    - show order history
+    - get order history
+    - show latest order records
+    - fetch recent order details
+
+
+
+- intent: order_events
+  examples: |
+    - how many order on this
+    - how many on that
+    - on this
+    - on that
+    - given by him
+    - show order events
+    - list order events
+    - display order events
+    - show event history
+    - show order history
+    - show workflow history
+    - show status changes
+    - show status transition history
+    - show latest event
+    - show latest order event
+    - show event details
+    - show events for order 5
+    - show events for order 10
+    - what was the previous status
+    - what is the new status
+    - show status progression
+    - show order lifecycle
+    - show workflow progression
+    - show vendor details
+    - list vendors
+    - show all vendors
+    - count vendors
+    - vendor wise orders
+    - vendor performance
+    - vendor statistics
+    - which vendor is assigned to order 5
+    - who is handling order 10
+    - show orders handled by Maxar
+    - show orders handled by Airbus
+    - show orders handled by Planet Labs
+    - show orders handled by SatSure
+    - which vendor has the most orders
+    - which vendor has the least orders
+    - compare vendors
+    - vendor order count
+    - top vendors
+    - show sensor details
+    - list sensors
+    - show all sensors
+    - show selected sensors
+    - show sensor information
+    - show sensor usage
+    - show sensor statistics
+    - compare sensors
+    - which sensor is assigned to order 10
+    - which sensor is assigned to order 5
+    - which sensor was used for ISRO
+    - which sensor was used for NASA
+    - show orders using WorldView-3
+    - show orders using PlanetScope
+    - show orders using Pleiades Neo
+    - show orders using Cartosat-3
+    - show orders using SkySat
+    - count orders by sensor
+    - sensor wise order count
+    - show most used sensor
+    - show least used sensor
+    - sensor performance report
+    - show acquisition progress
+    - show completion percentage
+    - show percentage completed
+    - what percentage is complete
+    - show orders with 100 percent completion
+    - show orders with less than 50 percent completion
+    - show progress statistics
+    - show mapping progress
+    - show acquisition statistics
+    - show processing progress
+    - show area covered
+    - show remaining area
+    - show extra area covered
+    - how much area has been covered
+    - how much area is remaining
+    - show total covered area
+    - show total remaining area
+    - show total extra area covered
+    - show AOI coverage details
+    - show AOI progress
+    - show coverage statistics
+    - show coverage percentage
+    - show area coverage report
+    - show acquisition coverage
+    - show geospatial coverage progress
+    - show mapped area
+    - show unmapped area
+    - show area completion report
+    - show area covered by vendor
+    - compare area coverage across vendors
+    - which order has the highest covered area
+    - which order has the highest remaining area
+    - which order has the lowest remaining area
+    - show acquisition efficiency
+    - show coverage efficiency
+    - show price per km
+    - show acquisition cost per km
+    - show event total price
+    - show total processing cost
+    - show event pricing details
+    - which event has the highest total price
+    - which event has the lowest total price
+    - show completed event records
+    - show pending event records
+    - show high priority event records
+    - count all order events
+    - how many order events are there
+    - total number of order events
+    - show recent events
+    - show latest workflow events
+    - show event summary
+    - get event information
+    - show event records
+    - list workflow events
+    - display workflow events
+    - find event for order 5
+    - find event for order 10
+    - show vendor assignment history
+    - show sensor assignment history
+    - show acquisition status
+    - show processing status
+    - show completion report
+    - show coverage report
+    - event wise statistics
+    - vendor wise performance report
+    - sensor wise usage report
+    - compare sensor usage
+    - compare vendor performance
+    - show event cost statistics
+    - average event price
+    - maximum event price
+    - minimum event price
+    - highest event cost
+    - lowest event cost
+    - show expensive event records
+    - show cheapest event records
+    - list event records by price
+    - show top 5 expensive events
+    - show top 5 cheapest events
+    - show completed vendor assignments
+    - show pending vendor assignments
+    - show orders completed by Airbus
+    - show orders completed by Maxar
+    - show orders completed by Planet Labs
+    - show orders completed by SatSure
+
+
+
+- intent: vendors
+  examples: |
+    - show all vendors
+    - list vendors
+    - display vendors
+    - count vendors
+    - how many vendors are there
+    - show vendor details
+    - show vendor information
+    - find vendor Maxar
+    - find vendor Airbus
+    - show orders assigned to vendors
+    - show vendor wise orders
+    - which vendor has most orders
+    - vendor order count
+    - list vendors with order count
+    - show vendor performance
+    - show vendor statistics
+    - vendor assigned to order 5
+    - who is the vendor for order 10
+    - show all vendor names
+    - list active vendors
+    - show vendor distribution
+    - compare vendors
+    - top vendors by orders
+    - show vendor summary
+
+
+- intent: sensors
+  examples: |
+    - show all sensors
+    - list sensors
+    - display sensors
+    - count sensors
+    - how many sensors are available
+    - show sensor details
+    - show sensor information
+    - find sensor WorldView-3
+    - find sensor Pleiades
+    - list sensors by vendor
+    - show sensors for Maxar
+    - show sensors for Airbus
+    - which vendor owns this sensor
+    - sensor count by vendor
+    - show available sensors
+    - show sensor distribution
+    - top sensors
+    - show sensor usage
+    - sensor assigned to vendor
+    - list all sensor names
+    - compare sensors
+    - show latest sensors
+
+
+- intent: users
+  examples: |
+    - show all users
+    - list users
+    - display users
+    - count users
+    - how many users are there
+    - show user details
+    - show user information
+    - find user sameer
+    - find user admin
+    - show all managers
+    - show all operators
+    - count managers
+    - count operators
+    - list usernames
+    - show user roles
+    - show user statistics
+    - which user created most orders
+    - user activity report
+    - active users
+    - registered users
+
+
+
+- intent: aoi
+  examples: |
+    - show all aoi records
+    - list aoi records
+    - display aoi information
+    - show area of interest data
+    - count aoi records
+    - how many aoi records exist
+    - show completed aoi records
+    - show pending aoi records
+    - show aoi progress
+    - percentage completed by aoi
+    - show remaining area
+    - show total area
+    - show covered area
+    - show aoi details
+    - show aoi for order 5
+    - find aoi record
+    - average completion percentage
+    - highest completion percentage
+    - lowest completion percentage
+    - show fully completed areas
+    - show incomplete areas
+    - list aoi by completion percentage
+    - total mapped area
+    - total remaining area
+
+
+- intent: clients
+  examples: |
+    - show all clients
+    - give me the client names
+    - list clients
+    - display clients
+    - count clients
+    - how many clients are there
+    - show client details
+    - show client information
+    - list client names
+  
+
+
+- intent: follow-up
+  examples: |
+    - show the name
+    - show the details
+    - show the values
+    - show the others
+    - show only the completed ones
+    - now show the pending ones
+    - what about the cancelled ones
+    - show the in progress ones too
+    - filter those by high priority
+    - now show only medium priority
+    - show the low priority records
+    - sort them by price
+    - sort them by highest price first
+    - show the cheapest one
+    - show the most expensive one
+    - how many of those are there
+    - give me the total count
+    - show more details about them
+    - show the latest records
+    - show the oldest records
+    - show only today's records
+    - group them by status
+    - group them by priority
+    - calculate the average price
+    - show the total price
+    - which one has the highest price
+    - which one has the lowest price
+    - show its order history
+    - show its status changes
+    - what was its previous status
+    - what is its new status
+    - show the latest event for it
+    - which vendor is assigned to it
+    - show all orders handled by that vendor
+    - how many orders does that vendor handle
+    - show the sensors for that vendor
+    - which sensor belongs to it
+    - show details of that sensor
+    - how many sensors does it have
+    - compare it with the other vendors
+    - show only the managers
+    - now show only the operators
+    - how many managers are in that list
+    - how many operators are in that list
+    - show the username for that user
+    - show more information about that user
+    - which client requested it
+    - show all orders for that client
+    - how many orders does that client have
+    - compare that client with the others
+    - show the client with the most orders
+    - show the client with the fewest orders
+    - show its AOI details
+    - what is its completion percentage
+    - how much area is remaining
+    - what is the total area
+    - show only the fully completed areas
+    - show the incomplete areas
+    - sort them by completion percentage
+    - which one has the highest completion percentage
+    - which one has the lowest completion percentage
+    - show the selected sensor for that event
+    - what is the total price for that event
+    - show the priority of that event

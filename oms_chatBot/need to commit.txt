@@ -1,0 +1,18 @@
+ui
+
+PromptManagement.jsx
+promptManagementService
+authRoles.js
+
+
+TypingIndicator.js
+rasaService.js
+MessageBubble.js
+index.js
+ChatWidget.js
+ChatWidget.css
+
+
+and backend
+
+all prompt files

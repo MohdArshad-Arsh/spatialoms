@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+/* Tailwind CSS base styles */
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+
+/* Ensure map control buttons (LayersControl) sit below custom top-right buttons like Close/Open */
+.map-controls-offset .leaflet-top.leaflet-right {
+    top: 56px !important; /* push down so custom buttons at top-2 are above */
+}
+
+/* Apply slight left margin so control doesn't overlap custom buttons on very small widths */
+.map-controls-offset .leaflet-control-layers {
+    margin-right: 8px;
+} 

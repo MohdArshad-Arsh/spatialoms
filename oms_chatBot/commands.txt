@@ -1,0 +1,39 @@
+THERE IS TWO enveronmets
+
+1. rasa_venv
+   it contains only rasa relaited packeges.
+   here we can not install other packages because it uses some older version of socket package.
+
+2. ui_venv
+   here we can install all packages.
+   It have like fast api, streamlite, etc.
+
+HOW TO START APPLICATION
+
+rasa start  {applicaton and devlopement}
+step 1 :- (rasa_venv) D:\rasa_rough\main>rasa train   {if you want to train the model then}
+step 2 :- (rasa_venv) D:\rasa_rough\main>rasa run actions --auto-reload
+step 3 :- (rasa_venv) D:\rasa_rough\main>rasa run --enable-api --cors "*" --debug
+
+fast api start for call llm
+step 1 :- (ui_venv) D:\rasa_rough\main\actions\services\configurations\llm_configration>uvicorn main:app --reload --port 8000
+          { here venve should be 'ui_venv' and path should be correct}
+
+
+RUN APPLICATION IN DEBBUG OR ONLY BY CODE
+step 1 :- (rasa_venv) D:\rasa_rough\main>rasa train   {if you want to train the model then}
+step 2 :- (rasa_venv) D:\rasa_rough\main>rasa run actions --auto-reload
+step 3 :- (rasa_venv) D:\rasa_rough\main>rasa run --enable-api --cors "*" --debug
+step 4 :- PS D:\rasa_rough\main> Invoke-RestMethod `
+>> -Uri "http://localhost:5005/webhooks/rest/webhook" `
+>> -Method Post `
+>> -ContentType "application/json" `
+>> -Body '{"sender":"test","message":"give me list of orders"}'
+
+recipient_id text                                                                                                               
+------------ ----                                                                                                               
+test         We have a total of 15 orders. Currently, there are 1 order that has been cancelled, 4 orders that are in progres...
+
+
+RUN DEMO UI
+step 1:- (ui_venv) PS D:\rasa_rough\main> streamlit run app.py

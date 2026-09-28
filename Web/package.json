@@ -1,0 +1,79 @@
+{
+    "name": "my-app",
+    "homepage": "/oms-backend",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@pnp/polyfill-ie11": "^2.0.2",
+        "@react-pdf-viewer/core": "^3.12.0",
+        "@reduxjs/toolkit": "^1.9.7",
+        "@testing-library/jest-dom": "^5.11.9",
+        "@testing-library/react": "^11.2.5",
+        "@testing-library/user-event": "^12.7.1",
+        "@tmcw/togeojson": "^7.1.2",
+        "@turf/turf": "^7.3.1",
+        "axios": "^0.21.4",
+        "bootstrap": "^4.6.0",
+        "but-unzip": "^0.1.4",
+        "chart.js": "^3.9.1",
+        "classnames": "^2.3.1",
+        "file-saver": "^2.0.5",
+        "jspdf": "^2.3.1",
+        "jspdf-autotable": "^3.5.14",
+        "jszip": "^3.10.1",
+        "leaflet": "^1.7.1",
+        "leaflet-draw": "^1.0.4",
+        "lucide-react": "^0.559.0",
+        "moment": "^2.29.1",
+        "react": "^17.0.2",
+        "react-app-polyfill": "^1.0.6",
+        "react-chartjs-2": "^4.3.1",
+        "react-closeable-tabs": "^1.1.5",
+        "react-csv": "^2.2.2",
+        "react-dom": "^17.0.2",
+        "react-dual-listbox": "^2.0.0",
+        "react-icons": "^4.3.1",
+        "react-idle-timer": "^4.6.4",
+        "react-leaflet": "^3.2.2",
+        "react-modal": "^3.11.2",
+        "react-moment": "^1.0.0",
+        "react-redux": "^7.2.9",
+        "react-router": "^5.2.0",
+        "react-router-dom": "^5.3.4",
+        "react-scripts": "3.4.3",
+        "react-select": "^5.10.2",
+        "react-text": "^3.2.4",
+        "react-toastify": "^6.1.0",
+        "react-xml-parser": "^1.1.8",
+        "reactstrap": "^8.6.0",
+        "shp-write": "^0.3.2",
+        "shpjs": "^3.6.3",
+        "sweetalert": "^2.1.2",
+        "sweetalert2": "^11.26.10",
+        "web-vitals": "^1.1.0",
+        "xlsx": "^0.18.5"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all",
+            "ie 11"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version",
+            "ie 11"
+        ]
+    }
+}
